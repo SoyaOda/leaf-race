@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="theme-color" content="#1d1a2c">
+<title>かえりみち葉っぱレース</title>
+<link rel="icon" href="data:,">
+<!--BODY-START-->
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" media="print" onload="this.media='all'" href="https://fonts.googleapis.com/css2?family=Klee+One:wght@400;600&family=Zen+Kaku+Gothic+New:wght@500;700&display=swap">
+<link rel="stylesheet" href="css/style.css?v=e79679972dca">
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+} }
+</script>
+</head>
+<body>
+<canvas id="gl" aria-label="小川のレース画面"></canvas>
+
+<div id="ui">
+  <!-- loading -->
+  <section id="loading" class="screen">
+    <p class="load-line">あの日の小道を、おもいだしています</p>
+    <div class="load-bar"><span id="loadFill"></span></div>
+    <p class="load-note" id="loadNote">テクスチャをよみこみ中</p>
+  </section>
+
+  <!-- error -->
+  <section id="error" class="screen" hidden>
+    <div class="paper">
+      <h2>この端末では川がながれませんでした</h2>
+      <p id="errorText"></p>
+    </div>
+  </section>
+
+  <!-- title -->
+  <section id="title" class="screen" hidden>
+    <div class="title-mark">
+      <h1 class="v-title"><span class="v-sub">かえりみちの</span>葉っぱレース</h1>
+    </div>
+    <p class="title-lede">小道のわきの、ちいさな川。<br>板のうえから、せーので。</p>
+    <div class="title-bottom">
+      <p class="choose-label">どの葉っぱで ながす？</p>
+      <div class="cards" id="cards" role="radiogroup" aria-label="葉っぱをえらぶ"></div>
+      <button class="btn-primary" id="btnStart" type="button">川へいく</button>
+    </div>
+    <div class="corner-tools">
+      <button class="icon-btn" id="btnSound" type="button" aria-label="音">♪</button>
+      <button class="icon-btn" id="btnSettings" type="button" aria-label="せってい">⚙</button>
+    </div>
+  </section>
+
+  <!-- in-game HUD -->
+  <section id="hud" class="screen hud" hidden>
+    <div class="hud-top">
+      <div class="rank" id="rank"><b id="rankNum">-</b><span>ばん</span></div>
+      <div class="clock" id="clock">0:00.0</div>
+      <button class="icon-btn" id="btnPause" type="button" aria-label="ひとやすみ">❙❙</button>
+    </div>
+    <svg class="minimap" id="minimap" viewBox="0 0 40 200" aria-hidden="true"></svg>
+    <div class="spot-name" id="spotName" aria-live="polite"></div>
+    <div class="labels" id="labels"></div>
+    <div class="hint" id="hint"></div>
+    <div class="hud-bottom" id="hudBottom">
+      <div class="pebbles" id="pebbles" aria-label="小石"></div>
+      <p class="pebble-note" id="pebbleNote">水面をタップで小石。止まった葉っぱはタップでつつく。</p>
+    </div>
+    <div class="toasts" id="toasts" aria-live="polite"></div>
+  </section>
+
+  <!-- results -->
+  <section id="result" class="screen" hidden>
+    <div class="notebook">
+      <p class="nb-date" id="nbDate"></p>
+      <h2 class="nb-title" id="nbTitle">けっか</h2>
+      <ol class="nb-list" id="nbList"></ol>
+      <p class="nb-note" id="nbNote"></p>
+      <div class="nb-actions">
+        <button class="btn-primary" id="btnAgain" type="button">もういっかい</button>
+        <button class="btn-ghost dark" id="btnChange" type="button">葉っぱをかえる</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- pause -->
+  <section id="pause" class="screen modal" hidden>
+    <div class="sheet">
+      <h2>ひとやすみ</h2>
+      <p class="sheet-note">ポーズ中は川のけいさんも止めています。</p>
+      <button class="btn-primary" id="btnResume" type="button">つづける</button>
+      <button class="btn-ghost" id="btnRetry" type="button">さいしょから</button>
+      <button class="btn-ghost" id="btnHome" type="button">タイトルへ</button>
+    </div>
+  </section>
+
+  <!-- settings -->
+  <section id="settings" class="screen modal" hidden>
+    <div class="sheet">
+      <h2>せってい</h2>
+      <label class="row" for="selQuality"><span>がしつ</span>
+        <select id="selQuality">
+          <option value="auto">おまかせ</option>
+          <option value="high">たかい</option>
+          <option value="mid">ふつう</option>
+          <option value="low">ひかえめ</option>
+        </select>
+      </label>
+      <label class="row" for="chkPerf"><span>性能を表示</span><input type="checkbox" id="chkPerf"></label>
+      <label class="row" for="chkCap"><span>60fpsで止める</span><input type="checkbox" id="chkCap" checked></label>
+      <div class="sheet-block">
+        <p class="sheet-note">5分間レースを自動でくり返し、fps の落ち方から発熱による性能低下（サーマルスロットリング）を見ます。解像度は固定します。</p>
+        <button class="btn-ghost" id="btnThermal" type="button">5分計測をはじめる</button>
+      </div>
+      <p class="sheet-meta" id="deviceMeta"></p>
+      <button class="btn-primary" id="btnCloseSettings" type="button">とじる</button>
+    </div>
+  </section>
+
+  <!-- thermal report -->
+  <section id="thermal" class="screen modal" hidden>
+    <div class="sheet wide">
+      <h2>5分計測のけっか</h2>
+      <p class="sheet-note" id="thermalVerdict"></p>
+      <canvas id="thermalChart" width="640" height="260" aria-label="fpsの推移"></canvas>
+      <fieldset class="feel">
+        <legend>端末をさわった感じ（ブラウザから温度は読めないため手で記録）</legend>
+        <label><input type="radio" name="feel" value="ぬるい"> ぬるい</label>
+        <label><input type="radio" name="feel" value="あたたかい"> あたたかい</label>
+        <label><input type="radio" name="feel" value="熱い"> 熱い</label>
+      </fieldset>
+      <textarea id="thermalJson" readonly rows="5" aria-label="計測データ(JSON)"></textarea>
+      <div class="nb-actions">
+        <button class="btn-primary" id="btnCopyThermal" type="button">JSONをコピー</button>
+        <button class="btn-ghost" id="btnCloseThermal" type="button">とじる</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="thermal-run" id="thermalRun" hidden>計測中 <b id="thermalLeft">5:00</b></div>
+  <pre class="perf" id="perf" hidden></pre>
+</div>
+
+<script type="module" src="src/main.js?v=e79679972dca"></script>
+</body>
+</html>
