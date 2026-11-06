@@ -8,8 +8,8 @@
 // appear as an enormous pressure gradient. The momentum of the falling water is added back in the first
 // row below the lip.
 import * as THREE from 'three';
-import { WORLD, PHYS } from './config.js?v=e79679972dca';
-import { restEta, INFLOW, kappa } from './course.js?v=e79679972dca';
+import { WORLD, PHYS } from './config.js?v=a087d61d0b56';
+import { restEta, INFLOW, kappa } from './course.js?v=a087d61d0b56';
 
 const FS_GEOM = new THREE.BufferGeometry();
 FS_GEOM.setAttribute('position', new THREE.BufferAttribute(new Float32Array([-1, -1, 0, 3, -1, 0, -1, 3, 0]), 3));

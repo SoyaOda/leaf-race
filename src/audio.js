@@ -30,6 +30,9 @@ export class SoundScape {
     this.echoOut = ctx.createGain(); this.echoOut.gain.value = 0.55;
     echoLp.connect(this.echoOut).connect(this.master);
     this.buildRiver();
+    // Some browsers (iOS Safari among them) can hand back a context that is created inside the tap
+    // yet still suspended; resuming here keeps the first tap from being silent.
+    if (ctx.state !== 'running') ctx.resume();
   }
 
   setEnabled(on) {

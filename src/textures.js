@@ -1,6 +1,6 @@
 // Procedural textures and asset loading.
 import * as THREE from 'three';
-import { FullscreenPass } from './sim.js?v=e79679972dca';
+import { FullscreenPass } from './sim.js?v=a087d61d0b56';
 
 // Tileable ripple detail: RG = ripple slope (encoded), B = foam cells, A = sparkle noise.
 const DETAIL_FRAG = /* glsl */`

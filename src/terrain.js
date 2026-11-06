@@ -3,9 +3,9 @@
 // The ground near the stream is a strip that follows the channel. A coarse grid in world space carries
 // the land beyond it and tucks itself under the strip.
 import * as THREE from 'three';
-import { WORLD } from './config.js?v=e79679972dca';
-import { groundHeight, fbm, ROCKS, toWorld, nearest, stripLimit, LANE, halfWidth, centerOffset, STEPS } from './course.js?v=e79679972dca';
-import { WATER_PARS, SHADOW_SHIFT_VERTEX, UNDERWATER_LIGHT } from './water.js?v=e79679972dca';
+import { WORLD } from './config.js?v=a087d61d0b56';
+import { groundHeight, fbm, ROCKS, toWorld, nearest, stripLimit, LANE, halfWidth, centerOffset, STEPS } from './course.js?v=a087d61d0b56';
+import { WATER_PARS, SHADOW_SHIFT_VERTEX, UNDERWATER_LIGHT } from './water.js?v=a087d61d0b56';
 
 const WORLD_VARYINGS_VERT = /* glsl */`
 #include <worldpos_vertex>

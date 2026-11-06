@@ -2,9 +2,9 @@
 // absorption, flow-mapped ripples and foam), the falling curtains, and the caustics map.
 // All field lookups are in channel coordinates; the mesh is already bent along the stream.
 import * as THREE from 'three';
-import { WORLD, PHYS, SUN } from './config.js?v=e79679972dca';
-import { SKY_GLSL } from './sky.js?v=e79679972dca';
-import { STEPS, toWorld, heading, bedLine, centerOffset, halfWidth } from './course.js?v=e79679972dca';
+import { WORLD, PHYS, SUN } from './config.js?v=a087d61d0b56';
+import { SKY_GLSL } from './sky.js?v=a087d61d0b56';
+import { STEPS, toWorld, heading, bedLine, centerOffset, halfWidth } from './course.js?v=a087d61d0b56';
 
 // Shared by every material that sits in or under the water. vSN = (n + W/2, s).
 export const WATER_PARS = /* glsl */`

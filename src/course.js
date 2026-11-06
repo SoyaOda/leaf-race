@@ -1,7 +1,7 @@
 // The stream: a centreline authored by its curvature, a bed with real drops, and the rocks.
 // Everything is defined in channel coordinates (s along, n across). One analytic height function
 // feeds the rendered terrain and the simulated bed, so what you see and what the water flows over agree.
-import { WORLD, PHYS } from './config.js?v=e79679972dca';
+import { WORLD, PHYS } from './config.js?v=a087d61d0b56';
 
 const gauss = (x) => Math.exp(-x * x);
 const smooth = (a, b, x) => { const t = Math.min(1, Math.max(0, (x - a) / (b - a))); return t * t * (3 - 2 * t); };

@@ -1,10 +1,10 @@
 // Race flow: release, stepping the leaves against the simulated flow, pebbles and splashes,
 // spray at the falls, rival friends' behaviour, finishing order.
 import * as THREE from 'three';
-import { WORLD, RACE, RIVALS, PLAYER, LEAF_TYPES } from './config.js?v=e79679972dca';
-import { centerOffset, halfWidth, groundHeight, progressOf, toWorld, restEta, STEPS, SPOTS, heading } from './course.js?v=e79679972dca';
-import { Leaf, collideLeaves, PROBES_PER_LEAF } from './leaves.js?v=e79679972dca';
-import { LAYER_OPAQUE, LAYER_FLOAT } from './post.js?v=e79679972dca';
+import { WORLD, RACE, RIVALS, PLAYER, LEAF_TYPES } from './config.js?v=a087d61d0b56';
+import { centerOffset, halfWidth, groundHeight, progressOf, toWorld, restEta, STEPS, SPOTS, heading } from './course.js?v=a087d61d0b56';
+import { Leaf, collideLeaves, PROBES_PER_LEAF } from './leaves.js?v=a087d61d0b56';
+import { LAYER_OPAQUE, LAYER_FLOAT } from './post.js?v=a087d61d0b56';
 
 const SPLASH_MAX = 260;
 const PEBBLE_MAX = 24;

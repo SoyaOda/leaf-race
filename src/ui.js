@@ -1,8 +1,8 @@
 // DOM layer: screens, HUD, labels over leaves, mini-map, toasts, settings and the thermal report.
 import * as THREE from 'three';
-import { LEAF_TYPES, WORLD, RACE, TIERS } from './config.js?v=e79679972dca';
-import { toWorld, STEPS, SPOTS } from './course.js?v=e79679972dca';
-import { leafPreviewCanvas } from './leaves.js?v=e79679972dca';
+import { LEAF_TYPES, WORLD, RACE, TIERS } from './config.js?v=a087d61d0b56';
+import { toWorld, STEPS, SPOTS } from './course.js?v=a087d61d0b56';
+import { leafPreviewCanvas } from './leaves.js?v=a087d61d0b56';
 
 const $ = (id) => document.getElementById(id);
 const MAP_POINTS = 120;

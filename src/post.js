@@ -1,7 +1,7 @@
 // Frame pipeline: opaque scene -> refraction copy -> water -> floating things -> bloom -> grade.
 // Everything before the final pass is linear HDR in half-float targets; resolution is dynamic.
 import * as THREE from 'three';
-import { FullscreenPass } from './sim.js?v=e79679972dca';
+import { FullscreenPass } from './sim.js?v=a087d61d0b56';
 
 export const LAYER_OPAQUE = 0;
 export const LAYER_WATER = 1;

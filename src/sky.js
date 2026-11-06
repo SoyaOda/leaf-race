@@ -1,7 +1,7 @@
 // Late-afternoon sky: the Poly Haven HDRI regraded (clear blue zenith, apricot horizon,
 // a glow around the sun). Shared by the sky dome and the water reflections so they always match.
 import * as THREE from 'three';
-import { SUN } from './config.js?v=e79679972dca';
+import { SUN } from './config.js?v=a087d61d0b56';
 
 export const SKY_GLSL = /* glsl */`
 uniform sampler2D uSky;

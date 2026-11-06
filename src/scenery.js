@@ -1,10 +1,10 @@
 // Everything around the stream: sky and sun, the plank bridge, the finish string, the stone culvert,
 // bank vegetation, a bamboo stand and autumn trees on the hill, a little jizo by the lane, fields beyond.
 import * as THREE from 'three';
-import { WORLD, SUN, RIVALS } from './config.js?v=e79679972dca';
-import { groundHeight, halfWidth, centerOffset, fbm, toWorld, heading, restEta, nearest, laneHeight, LANE } from './course.js?v=e79679972dca';
-import { makePlumeTexture, makeFlagTexture } from './textures.js?v=e79679972dca';
-import { makeSkyDome } from './sky.js?v=e79679972dca';
+import { WORLD, SUN, RIVALS } from './config.js?v=a087d61d0b56';
+import { groundHeight, halfWidth, centerOffset, fbm, toWorld, heading, restEta, nearest, laneHeight, LANE } from './course.js?v=a087d61d0b56';
+import { makePlumeTexture, makeFlagTexture } from './textures.js?v=a087d61d0b56';
+import { makeSkyDome } from './sky.js?v=a087d61d0b56';
 
 const sunDir = new THREE.Vector3(...SUN.dir);
 const sunRad = new THREE.Vector3(...SUN.color).multiplyScalar(SUN.intensity);

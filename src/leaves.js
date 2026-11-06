@@ -10,10 +10,10 @@
 //    from it. A leaf that comes up too soon is carried back in and dunked again. It gets out by staying
 //    down long enough to surface past the boil line, or by drifting sideways out of the curtain.
 import * as THREE from 'three';
-import { WORLD, PHYS, SUN, LEAF_TYPES, FALL, RACE } from './config.js?v=e79679972dca';
-import { STEPS, toWorld, heading, centerOffset } from './course.js?v=e79679972dca';
-import { makeLeafCanvas } from './textures.js?v=e79679972dca';
-import { LAYER_OPAQUE, LAYER_FLOAT } from './post.js?v=e79679972dca';
+import { WORLD, PHYS, SUN, LEAF_TYPES, FALL, RACE } from './config.js?v=a087d61d0b56';
+import { STEPS, toWorld, heading, centerOffset } from './course.js?v=a087d61d0b56';
+import { makeLeafCanvas } from './textures.js?v=a087d61d0b56';
+import { LAYER_OPAQUE, LAYER_FLOAT } from './post.js?v=a087d61d0b56';
 
 // ---- outlines (normalised: tip toward +z, fits roughly in [-1, 1]) --------------------
 function tri(x) { const f = x - Math.floor(x); return 1 - Math.abs(f * 2 - 1); }

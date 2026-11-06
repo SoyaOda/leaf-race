@@ -1,18 +1,18 @@
 // Boot, game states and the frame loop.
 import * as THREE from 'three';
-import { TIERS, WORLD } from './config.js?v=e79679972dca';
-import { buildBed, buildKappa, nearest, groundHeight, restEta, STEPS, toWorld } from './course.js?v=e79679972dca';
-import { ShallowWater } from './sim.js?v=e79679972dca';
-import { makeDetailTexture, loadAssets } from './textures.js?v=e79679972dca';
-import { WaterSurface, Caustics, Curtains, makeWaterUniforms } from './water.js?v=e79679972dca';
-import { buildTerrain, createRockMaterial, buildRocks } from './terrain.js?v=e79679972dca';
-import { Scenery } from './scenery.js?v=e79679972dca';
-import { Race, LISTENER_PROBE } from './race.js?v=e79679972dca';
-import { CameraRig, setGroundLookup } from './camera.js?v=e79679972dca';
-import { Pipeline, LAYER_WATER, LAYER_FLOAT } from './post.js?v=e79679972dca';
-import { SoundScape } from './audio.js?v=e79679972dca';
-import { PerfMonitor } from './perf.js?v=e79679972dca';
-import { UI } from './ui.js?v=e79679972dca';
+import { TIERS, WORLD } from './config.js?v=a087d61d0b56';
+import { buildBed, buildKappa, nearest, groundHeight, restEta, STEPS, toWorld } from './course.js?v=a087d61d0b56';
+import { ShallowWater } from './sim.js?v=a087d61d0b56';
+import { makeDetailTexture, loadAssets } from './textures.js?v=a087d61d0b56';
+import { WaterSurface, Caustics, Curtains, makeWaterUniforms } from './water.js?v=a087d61d0b56';
+import { buildTerrain, createRockMaterial, buildRocks } from './terrain.js?v=a087d61d0b56';
+import { Scenery } from './scenery.js?v=a087d61d0b56';
+import { Race, LISTENER_PROBE } from './race.js?v=a087d61d0b56';
+import { CameraRig, setGroundLookup } from './camera.js?v=a087d61d0b56';
+import { Pipeline, LAYER_WATER, LAYER_FLOAT } from './post.js?v=a087d61d0b56';
+import { SoundScape } from './audio.js?v=a087d61d0b56';
+import { PerfMonitor } from './perf.js?v=a087d61d0b56';
+import { UI } from './ui.js?v=a087d61d0b56';
 
 const SPIN_FACTOR = 3;        // the pre-run uses a grid this many times coarser
 const SPIN_SECONDS = 75;      // long enough for water to reach steady flow over the whole course
@@ -271,6 +271,15 @@ async function boot() {
   };
   canvas.addEventListener('pointerup', endDrag);
   canvas.addEventListener('pointercancel', endDrag);
+
+  // Sound may only begin from a gesture, so the first touch anywhere starts it, not only the buttons:
+  // otherwise the title stays silent until some button happens to be pressed.
+  const UNLOCK_EVENTS = ['pointerdown', 'pointerup', 'touchend', 'keydown'];
+  const unlockSound = () => {
+    sound.start();
+    if (sound.ctx.state === 'running') UNLOCK_EVENTS.forEach((t) => removeEventListener(t, unlockSound, true));
+  };
+  UNLOCK_EVENTS.forEach((t) => addEventListener(t, unlockSound, true));
 
   // ---------------- buttons ----------------
   const on = (id, fn) => document.getElementById(id).addEventListener('click', () => { sound.start(); sound.tick(); fn(); });

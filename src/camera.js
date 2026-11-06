@@ -2,8 +2,8 @@
 // on the lane side. Near a fall it steps down the bank and looks back up at the curtain, because from
 // upstream a fall is only an edge.
 import * as THREE from 'three';
-import { WORLD } from './config.js?v=e79679972dca';
-import { toWorld, heading, groundHeight, restEta, STEPS, centerOffset } from './course.js?v=e79679972dca';
+import { WORLD } from './config.js?v=a087d61d0b56';
+import { toWorld, heading, groundHeight, restEta, STEPS, centerOffset } from './course.js?v=a087d61d0b56';
 
 const damp = (a, b, k, dt) => a + (b - a) * (1 - Math.exp(-k * dt));
 const sstep = (a, b, x) => { const t = Math.min(1, Math.max(0, (x - a) / (b - a))); return t * t * (3 - 2 * t); };
